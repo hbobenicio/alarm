@@ -5,8 +5,10 @@
 #include <string.h>
 #include <limits.h>
 
-
 #include <errno.h>
+
+static int getenv_int(const char* env_var_name, int default_value, bool required);
+static const char* getenv_str(const char* env_var_name, const char* default_value, bool required);
 
 Config config_from_env(void)
 {
@@ -19,7 +21,7 @@ Config config_from_env(void)
     };
 }
 
-int getenv_int(const char* env_var_name, int default_value, bool required)
+static int getenv_int(const char* env_var_name, int default_value, bool required)
 {
     const char* value = getenv(env_var_name);
     if (value == NULL) {
@@ -47,7 +49,7 @@ int getenv_int(const char* env_var_name, int default_value, bool required)
     return (int) ul_value;
 }
 
-const char* getenv_str(const char* env_var_name, const char* default_value, bool required)
+static const char* getenv_str(const char* env_var_name, const char* default_value, bool required)
 {
     const char* value = getenv(env_var_name);
     if (value == NULL) {

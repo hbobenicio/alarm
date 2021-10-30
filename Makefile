@@ -1,5 +1,5 @@
 # SRC = src/config.c src/main.c
-OBJS = config.o main.o # $(SRCS:.c=.o)
+OBJS = config.o wav-parser.o main.o # $(SRCS:.c=.o)
 BIN = alarm
 
 PKG_CONFIG_CFLAGS  := $(shell pkg-config --cflags gtk+-3.0)
@@ -19,7 +19,7 @@ release: LDFLAGS += -O3
 release: all
 	strip $(BIN)
 
-debug: CFLAGS += -g -fsanitize=address -O0
+debug: CFLAGS += -g -fsanitize=address -O0 -DDEBUG
 debug: LDFLAGS += -g -fsanitize=address -O0
 debug: all
 
