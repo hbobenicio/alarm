@@ -2,7 +2,7 @@
 
 ## Usage
 
-```
+```bash
 HOUR=13 MIN=42 MSG="Don't forget to drink some water!" ./alarm
 ```
 
@@ -10,7 +10,7 @@ HOUR=13 MIN=42 MSG="Don't forget to drink some water!" ./alarm
 
 ### Build dependencies
 
-- C11 compiler **(clang recommended)**
+- C11+ compiler **(clang recommended)**
   - Ubuntu 18.04 LTS: `clang`
 - pkg-config **(recommend)**, for finding gtk flags and libs. You can set the flags with other tools or manually though
   - Ubuntu 18.04 LTS: `pkg-config`
@@ -30,13 +30,13 @@ HOUR=13 MIN=42 MSG="Don't forget to drink some water!" ./alarm
 
 ### Release profile
 
-```
+```bash
 make release
 ```
 
 ### Debug profile
 
-```
+```bash
 make debug
 ```
 

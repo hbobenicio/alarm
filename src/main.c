@@ -53,11 +53,13 @@ int main(int argc, char *argv[])
         .config = &config,
     };
     if (thrd_create(&sound_player_thread, sound_player_thread_start, &sound_player_thread_context) != thrd_success) {
-        fprintf(stderr, "error: could not create sound player thread: %s.\n", strerror(errno));
+        const char* posix_reason = strerror(errno);
+        fprintf(stderr, "error: could not create sound player thread: %s.\n", posix_reason);
         return EXIT_FAILURE;
     }
     if (thrd_detach(sound_player_thread) != thrd_success) {
-        fprintf(stderr, "error: failed to detach sound player thread: %s.\n", strerror(errno));
+        const char* posix_reason = strerror(errno);
+        fprintf(stderr, "error: failed to detach sound player thread: %s.\n", posix_reason);
         return EXIT_FAILURE;
     }
 
@@ -118,9 +120,9 @@ static int sound_player_thread_start(void* thread_context)
     SoundPlayerThreadContext* ctx = (SoundPlayerThreadContext*) thread_context;
     (void) ctx;
 
-    return play_wav_file("assets/alarm.wav", 44100, 1, 10);
+    //return play_wav_file("assets/alarm.wav", 44100, 1, 10);
     // play_wav_file("assets/acorda-fidaegua.ogg", 44100, 1, 10);
-    //return play_wav_file("assets/acorda-fidaegua.wav", 48000, 1, 10);
+    return play_wav_file("assets/acorda-fidaegua.wav", 48000, 1, 10);
     //return play_wav_file("assets/abestado-seligai.wav", 48000, 1, 10);
 }
 

@@ -1,14 +1,16 @@
 # SRC = src/config.c src/main.c
 OBJS = config.o wav-parser.o main.o # $(SRCS:.c=.o)
 BIN = alarm
+CC = clang
 
-PKG_CONFIG_CFLAGS  := $(shell pkg-config --cflags gtk+-3.0)
-PKG_CONFIG_LDFLAGS := $(shell pkg-config --libs gtk+-3.0)
+PKG_CONFIG_LIBS = "gtk+-3.0 alsa"
+PKG_CONFIG_CFLAGS  := $(shell pkg-config --cflags $(PKG_CONFIG_LIBS))
+PKG_CONFIG_LDFLAGS := $(shell pkg-config --libs   $(PKG_CONFIG_LIBS))
 
 LIBS = -pthread -lasound
 
-CFLAGS  = -Wall -Wextra -pedantic -std=c11 $(PKG_CONFIG_CFLAGS)
-LDFLAGS = -Wall -Wextra -pedantic -std=c11 $(PKG_CONFIG_LDFLAGS) $(LIBS)
+CFLAGS  = -Wall -Wextra -pedantic -std=c23 $(PKG_CONFIG_CFLAGS)
+LDFLAGS = -Wall -Wextra -pedantic -std=c23 $(PKG_CONFIG_LDFLAGS) $(LIBS)
 
 .PHONY: all release debug vscode-include-paths distclean clean
 
@@ -24,7 +26,7 @@ debug: LDFLAGS += -g -fsanitize=address -O0
 debug: all
 
 $(BIN): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
 %.o: src/%.c src/%.h
 	$(CC) $(CFLAGS) -c -o $@ $<
